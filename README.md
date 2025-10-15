@@ -30,18 +30,20 @@ If running you can find it:
 
 ```
 .
-├── index.ts              # Main server + SQLite setup + API routes
-├── public/
-│   ├── about.html        # About page
-│   ├── todos.html        # Todo app page
-│   └── assets/
-│       ├── todos.ts      # Frontend TypeScript
-│       └── styles.css    # Minimal styling
-├── data/                 # SQLite storage (gitignored)
+├── src/
+│   ├── index.ts              # Main server + SQLite setup + API routes
+│   ├── client/               # Frontend files
+│   │   ├── about.html        # About page
+│   │   ├── todos.html        # Todo app page
+│   │   └── assets/
+│   │       ├── todos.ts      # Frontend TypeScript
+│   │       └── styles.css    # Minimal styling
+│   └── db.ts                 # Database setup and queries
+├── data/                     # SQLite storage (gitignored)
 │   └── .keep
-├── railway.toml          # Railway deployment config
-├── fly.toml              # Fly.io deployment config
-├── package.json          # Scripts and dependencies
+├── railway.toml              # Railway deployment config
+├── fly.toml                  # Fly.io deployment config
+├── package.json              # Scripts and dependencies
 └── README.md
 ```
 
@@ -165,7 +167,7 @@ bun run railway:env        # Set env var only
 The [railway.toml](railway.toml) file configures:
 
 - **Builder**: Nixpacks (auto-detects Bun)
-- **Start Command**: `bun index.ts`
+- **Start Command**: `bun src/index.ts`
 - **Health Check**: `/healthz` endpoint with 10s timeout
 - **Restart Policy**: ON_FAILURE with max 3 retries
 

@@ -2,7 +2,7 @@
     builder = "NIXPACKS"
 
 [deploy]
-    startCommand            = "bun index.ts"
+    startCommand            = "bun src/index.ts"
     healthcheckPath         = "/healthz"
     healthcheckTimeout      = 10
     restartPolicyType       = "ON_FAILURE"

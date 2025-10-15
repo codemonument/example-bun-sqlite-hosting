@@ -1,12 +1,12 @@
 {
   "name": "example-bun-sqlite-railway",
-  "module": "index.ts",
+  "module": "src/index.ts",
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun --hot index.ts",
-    "dev-watch": "bun --watch index.ts",
-    "start": "bun index.ts",
+    "dev": "bun --hot src/index.ts",
+    "dev-watch": "bun --watch src/index.ts",
+    "start": "bun src/index.ts",
     "railway:login": "railway login",
     "railway:link": "railway link -p 6e2c27cc-77f1-4977-ad0f-0925fbadf818",
     "railway:setup": "bun run railway:volume && bun run railway:env",

@@ -1,8 +1,8 @@
-// Import HTML files using Bun v1.3 HTML imports
-import aboutPage from "./public/about.html";
-import todosPage from "./public/todos.html";
+// Import HTML files using Bun HTML imports
+import aboutPage from "./client/about.html";
+import todosPage from "./client/todos.html";
 // Import database queries and types
-import { queries, rowToTodo, type TodoRow } from "./src/db";
+import { queries, rowToTodo, type TodoRow } from "./db";
 
 const PORT = Number(process.env.PORT || 3000);
 
@@ -30,12 +30,7 @@ Bun.serve({
         "/": () => Response.redirect("/todos", 302),
         "/about": aboutPage,
         "/todos": todosPage,
-        // "/assets/*": (req) => {
-        //     const url = new URL(req.url);
-        //     return new Response(Bun.file("public" + url.pathname));
-        // },
         "/healthz": new Response("ok"),
-
         // API routes
         "/api/todos": {
             // List all todos
