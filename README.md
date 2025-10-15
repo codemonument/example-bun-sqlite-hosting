@@ -181,6 +181,8 @@ For Deployment:
 
 - added env var PORT=8080 to be aligned with the default expectation
 - Not added env var DB_PATH, default is data/app.sqlite
+  - Update: added DB_PATH=/data/app.sqlite, since the default path might be
+    wrong, dependning on the workdir configuration in the final docker image!
 - added "Disk" in ui, basically the same as a volume
 - redeployed
 
