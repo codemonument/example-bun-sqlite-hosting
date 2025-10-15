@@ -1,17 +1,11 @@
-# example-bun-sqlite-railway
+# example-bun-sqlite-hosting
 
 Example repository to develop scaffolding for using Bun + SQLite with deployment
 on Railway.
 
-If running you can find it here:
-https://example-bun-sqlite-railway-production.up.railway.app/
+If running you can find it:
 
-## FINAL SUMMARY (2025-10-15)
-
-I'm not using railway for more projects. I cannot automate volume creation via
-the railway.toml file and infrastructure as code is extremely important to me.
-However, maybe they add it in the future. Keeping this repo around for testing
-later.
+- at railway: https://example-bun-sqlite-railway-production.up.railway.app/
 
 ## Features
 
@@ -28,7 +22,9 @@ later.
 - **Database**: SQLite (via `bun:sqlite`)
 - **Frontend**: Vanilla HTML + TypeScript
 - **Backend**: Bun.serve with TypeScript
-- **Deployment**: Railway with Volume storage
+- **Deployments**:
+  - Railway with Volume storage
+  - Fly.io with Volume storage
 
 ## Project Structure
 
@@ -44,6 +40,7 @@ later.
 ├── data/                 # SQLite storage (gitignored)
 │   └── .keep
 ├── railway.toml          # Railway deployment config
+├── fly.toml              # Fly.io deployment config
 ├── package.json          # Scripts and dependencies
 └── README.md
 ```
@@ -117,42 +114,7 @@ bun run railway:env        # Set env var only
 
 ### Deployment Steps
 
-#### Option A: Dashboard Setup
-
-1. **Push to GitHub**
-
-   ```bash
-   git add .
-   git commit -m "Initial commit"
-   git push origin main
-   ```
-
-2. **Create Railway Project**
-
-   - Go to [Railway Dashboard](https://railway.app/dashboard)
-   - Click "New Project"
-   - Select "Deploy from GitHub repo"
-   - Choose your repository
-   - Railway will auto-detect Bun using `bun.lockb`
-
-3. **Add Volume for SQLite**
-
-   - In your Railway project, go to your service
-   - Click "Volumes" tab
-   - Click "Add Volume"
-   - Set mount path: `/data`
-
-4. **Set Environment Variable**
-
-   - Click "Variables" tab
-   - Add: `DB_PATH=/data/app.sqlite`
-
-5. **Deploy**
-   - Railway will automatically deploy
-   - Health checks via `/healthz` endpoint
-   - Restart policy: ON_FAILURE with 3 retries
-
-#### Option B: CLI Setup (Automated)
+### Railway CLI Setup (Automated)
 
 1. **Install Railway CLI**
 
@@ -207,6 +169,21 @@ The [railway.toml](railway.toml) file configures:
 - **Health Check**: `/healthz` endpoint with 10s timeout
 - **Restart Policy**: ON_FAILURE with max 3 retries
 
+---
+
+# Deployment Insights gathered
+
+## Railway 2025-10-15: not my cup of tea
+
+I'm not using railway for more projects. Main issue: I cannot automate volume
+creation via the railway.toml file and infrastructure as code is extremely
+important to me. However, maybe they add it in the future. Keeping this repo
+around for testing later.
+
+---
+
+# Dev Info
+
 ## Database Schema
 
 ```sql
@@ -248,12 +225,13 @@ END;
 - Fetch API for backend communication
 - Simple, responsive UI
 
-### Deployment (Railway)
+### Deployments - see above
 
 - Volume-mounted persistent storage
 - Health check monitoring
 - Automatic restarts on failure
 - Environment-based configuration
+- strict Infrastructure as Code, as far as possible
 
 ## Contributing
 
