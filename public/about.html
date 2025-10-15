@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About - Bun + SQLite + Railway</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="/todos">Todos</a> | <a href="/about">About</a>
+    </nav>
+    <main>
+      <h1>About This Project</h1>
+      <p>
+        This is an example repository to develop scaffolding for using
+        <strong>Bun</strong> + <strong>SQLite</strong> with deployment on
+        <strong>Railway</strong>.
+      </p>
+
+      <h2>Technology Stack</h2>
+      <ul>
+        <li><strong>Backend:</strong> Bun.serve with TypeScript</li>
+        <li><strong>Database:</strong> SQLite (via bun:sqlite)</li>
+        <li><strong>Frontend:</strong> Vanilla HTML + TypeScript</li>
+        <li><strong>Deployment:</strong> Railway with Volume storage</li>
+      </ul>
+
+      <h2>Features</h2>
+      <ul>
+        <li>Pure Bun implementation - no external frameworks</li>
+        <li>RESTful API for CRUD operations</li>
+        <li>Persistent SQLite database</li>
+        <li>TypeScript throughout (frontend and backend)</li>
+        <li>Simple, production-ready deployment setup</li>
+      </ul>
+
+      <h2>API Endpoints</h2>
+      <ul>
+        <li><code>GET /api/todos</code> - List all todos</li>
+        <li><code>POST /api/todos</code> - Create a new todo</li>
+        <li><code>GET /api/todos/:id</code> - Get a single todo</li>
+        <li><code>PATCH /api/todos/:id</code> - Update a todo</li>
+        <li><code>DELETE /api/todos/:id</code> - Delete a todo</li>
+        <li><code>GET /healthz</code> - Health check endpoint</li>
+      </ul>
+    </main>
+  </body>
+</html>

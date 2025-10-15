@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todos - Bun + SQLite + Railway</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="/todos">Todos</a> | <a href="/about">About</a>
+    </nav>
+    <main>
+      <h1>Todo List</h1>
+      <form id="new-todo">
+        <input
+          id="todo-text"
+          type="text"
+          placeholder="What needs to be done?"
+          required
+        />
+        <button type="submit">Add</button>
+      </form>
+      <ul id="list"></ul>
+    </main>
+    <script src="/assets/todos.ts" type="module"></script>
+  </body>
+</html>
