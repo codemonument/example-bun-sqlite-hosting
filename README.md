@@ -175,6 +175,18 @@ The [railway.toml](railway.toml) file configures:
 
 # Deployment Insights gathered
 
+## Sevalla 2025-10-15: really solid ui, but no Infra as code again!
+
+For Deployment:
+
+- added env var PORT=8080 to be aligned with the default expectation
+- Not added env var DB_PATH, default is data/app.sqlite
+- added "Disk" in ui, basically the same as a volume
+- redeployed
+
+=> worked flawlessly => builds with nixpacks like railway and uses dockerfile
+under the hood
+
 ## Northflank 2025-10-15: has infrastructure as code, but in a weird way
 
 AFAIK:
