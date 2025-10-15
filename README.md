@@ -175,6 +175,14 @@ The [railway.toml](railway.toml) file configures:
 
 # Deployment Insights gathered
 
+## Northflank 2025-10-15: has infrastructure as code, but in a weird way
+
+AFAIK:
+
+- you can create templates
+- these templates can be synced with another git repo, different to the one you
+  deploying your app from (?!? - why tf)
+
 ## Fly.io 2025-10-15: works ok
 
 - some issues with the initial deployment, the automatic detection got some
