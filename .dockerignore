@@ -1,0 +1,11 @@
+node_modules
+.git
+.github
+*.log
+.env
+.DS_Store
+data
+*.sqlite
+*.db
+railway.toml
+README.md

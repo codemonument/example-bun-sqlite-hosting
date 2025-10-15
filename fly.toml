@@ -1,0 +1,25 @@
+app = "example-bun-sqlite-hosting"
+primary_region = "fra"
+
+[build]
+dockerfile = "Dockerfile"
+
+[env]
+DB_PATH = "/data/app.sqlite"
+
+[mounts]
+source = "data"
+destination = "/data"
+initial_size = "1gb"
+
+[http_service]
+internal_port = 3000
+force_https = true
+auto_stop_machines = "stop"
+auto_start_machines = true
+min_machines_running = 0
+
+[[http_service.checks]]
+path = "/healthz"
+interval = "30s"
+timeout = "5s"
