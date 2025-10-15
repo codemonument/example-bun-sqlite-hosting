@@ -7,7 +7,12 @@
     "dev": "bun --hot index.ts",
     "dev-watch": "bun --watch index.ts",
     "build": "bun build --target bun index.ts",
-    "start": "bun index.ts"
+    "start": "bun index.ts",
+    "railway:login": "railway login",
+    "railway:link": "railway link -p 6e2c27cc-77f1-4977-ad0f-0925fbadf818",
+    "railway:setup": "bun run railway:volume && bun run railway:env",
+    "railway:volume": "railway volume add --mount-path /data",
+    "railway:env": "railway variables -e production -s example-bun-sqlite-railway --set \"DB_PATH=/data/app.sqlite\""
   },
   "devDependencies": {
     "@types/bun": "latest"

@@ -1,6 +1,7 @@
 # example-bun-sqlite-railway
 
-Example repository to develop scaffolding for using Bun + SQLite with deployment on Railway.
+Example repository to develop scaffolding for using Bun + SQLite with deployment
+on Railway.
 
 ## Features
 
@@ -8,7 +9,8 @@ Example repository to develop scaffolding for using Bun + SQLite with deployment
 - **TypeScript Throughout** - Both frontend and backend use TypeScript
 - **RESTful API** - Complete CRUD operations for todos
 - **Persistent Storage** - SQLite database with proper Railway volume setup
-- **Production Ready** - Health checks, restart policies, and proper error handling
+- **Production Ready** - Health checks, restart policies, and proper error
+  handling
 
 ## Tech Stack
 
@@ -73,12 +75,25 @@ bun run dev
 
 The SQLite database will be created at `data/app.sqlite`.
 
-### Production Mode
-
-To run in production mode:
+### Available Scripts
 
 ```bash
+# Development with hot reload
+bun run dev
+
+# Development with file watching
+bun run dev-watch
+
+# Production mode
 bun run start
+
+# Build for production
+bun run build
+
+# Railway setup (requires Railway CLI)
+bun run railway:setup      # Setup volume + env var
+bun run railway:volume     # Add volume only
+bun run railway:env        # Set env var only
 ```
 
 ## Railway Deployment
@@ -87,8 +102,12 @@ bun run start
 
 - GitHub account
 - [Railway account](https://railway.app)
+- [Railway CLI](https://docs.railway.app/guides/cli) (optional, for automated
+  setup)
 
 ### Deployment Steps
+
+#### Option A: Dashboard Setup
 
 1. **Push to GitHub**
 
@@ -109,16 +128,60 @@ bun run start
 3. **Add Volume for SQLite**
 
    - In your Railway project, go to your service
-   - Click "Variables" tab
-   - Add a new Volume:
-     - Mount path: `/data`
-   - Add environment variable:
-     - `DB_PATH=/data/app.sqlite`
+   - Click "Volumes" tab
+   - Click "Add Volume"
+   - Set mount path: `/data`
 
-4. **Deploy**
+4. **Set Environment Variable**
+
+   - Click "Variables" tab
+   - Add: `DB_PATH=/data/app.sqlite`
+
+5. **Deploy**
    - Railway will automatically deploy
    - Health checks via `/healthz` endpoint
    - Restart policy: ON_FAILURE with 3 retries
+
+#### Option B: CLI Setup (Automated)
+
+1. **Install Railway CLI**
+
+   ```bash
+   # macOS/Linux
+   curl -fsSL https://railway.app/install.sh | sh
+
+   # Or with npm
+   npm i -g @railway/cli
+   ```
+
+2. **Login & Link Project**
+
+   ```bash
+   railway login
+   railway link  # Link to existing project or create new one
+   ```
+
+3. **Setup Volume & Environment (One Command)**
+
+   ```bash
+   bun run railway:setup
+   ```
+
+   Or run individually:
+
+   ```bash
+   # Add volume
+   bun run railway:volume
+
+   # Set environment variable
+   bun run railway:env
+   ```
+
+4. **Deploy** (optional via CLI)
+
+   ```bash
+   railway up
+   ```
 
 ### Environment Variables
 
