@@ -175,6 +175,15 @@ The [railway.toml](railway.toml) file configures:
 
 # Deployment Insights gathered
 
+## Fly.io 2025-10-15: works ok
+
+- some issues with the initial deployment, the automatic detection got some
+  things wrong as i gave the git repo to fly.io
+- Good: volume was created and mounted correctly
+- Question: Does scaling the volume via fly.toml work?
+- Bad: Cold Start time is really bad (initial request did fail due to
+  coldstart!)
+
 ## Railway 2025-10-15: not my cup of tea
 
 I'm not using railway for more projects. Main issue: I cannot automate volume
