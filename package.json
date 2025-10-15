@@ -5,6 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "bun --hot index.ts",
+    "dev-watch": "bun --watch index.ts",
+    "build": "bun build --target bun index.ts",
     "start": "bun index.ts"
   },
   "devDependencies": {

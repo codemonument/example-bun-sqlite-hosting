@@ -1,6 +1,9 @@
 import { Database } from "bun:sqlite";
 import { mkdirSync } from "fs";
 import path from "path";
+// Import HTML files using Bun v1.3 HTML imports
+import aboutPage from "./public/about.html";
+import todosPage from "./public/todos.html";
 
 const PORT = Number(process.env.PORT || 3000);
 const DB_PATH = process.env.DB_PATH || path.resolve("data/app.sqlite");
@@ -49,85 +52,78 @@ function json(data: unknown, init: ResponseInit = {}) {
     });
 }
 
-// Helper function to serve static files
-async function serveStatic(filePath: string) {
-    const file = Bun.file(filePath);
-    if (!(await file.exists())) {
-        return new Response("Not found", { status: 404 });
-    }
-    return new Response(file);
-}
-
-// Start the server
+// Start the server using Bun v1.3's new routing system
 Bun.serve({
     port: PORT,
-    async fetch(req) {
-        const url = new URL(req.url);
-        const { pathname } = url;
 
-        // Static pages
-        if (pathname === "/" && req.method === "GET") {
-            return Response.redirect("/todos", 302);
-        }
-        if (pathname === "/about" && req.method === "GET") {
-            return serveStatic("public/about.html");
-        }
-        if (pathname === "/todos" && req.method === "GET") {
-            return serveStatic("public/todos.html");
-        }
-        if (pathname.startsWith("/assets/") && req.method === "GET") {
-            return serveStatic("public" + pathname);
-        }
-        if (pathname === "/healthz") {
-            return new Response("ok");
-        }
+    // Enable development features (HMR and browser console forwarding)
+    development: {
+        hmr: true, // Hot Module Replacement
+        console: true, // Echo console logs from browser to terminal
+    },
 
-        // API: List all todos
-        if (pathname === "/api/todos" && req.method === "GET") {
-            const rows = selectAll.all() as Array<{
-                id: number;
-                text: string;
-                completed: number;
-                created_at: string;
-                updated_at: string;
-            }>;
-            const todos = rows.map((r) => ({ ...r, completed: !!r.completed }));
-            return json(todos);
-        }
+    // Define routes using the new routes API
+    routes: {
+        // Static pages using HTML imports
+        "/": () => Response.redirect("/todos", 302),
+        "/about": aboutPage,
+        "/todos": todosPage,
+        // "/assets/*": (req) => {
+        //     const url = new URL(req.url);
+        //     return new Response(Bun.file("public" + url.pathname));
+        // },
+        "/healthz": new Response("ok"),
 
-        // API: Create new todo
-        if (pathname === "/api/todos" && req.method === "POST") {
-            let body: any;
-            try {
-                body = await req.json();
-            } catch {
-                return json({ error: "Invalid JSON" }, { status: 400 });
-            }
-            const text = (body?.text ?? "").toString().trim();
-            if (!text) {
-                return json({ error: "text is required" }, { status: 400 });
-            }
-            const res = insertTodo.run({ $text: text });
-            const id = Number(res.lastInsertRowid);
-            const row = selectOne.get({ $id: id }) as {
-                id: number;
-                text: string;
-                completed: number;
-                created_at: string;
-                updated_at: string;
-            };
-            return json({ ...row, completed: !!row.completed }, {
-                status: 201,
-            });
-        }
+        // API routes
+        "/api/todos": {
+            // List all todos
+            GET: () => {
+                const rows = selectAll.all() as Array<{
+                    id: number;
+                    text: string;
+                    completed: number;
+                    created_at: string;
+                    updated_at: string;
+                }>;
+                const todos = rows.map((r) => ({
+                    ...r,
+                    completed: !!r.completed,
+                }));
+                return json(todos);
+            },
 
-        // API: Handle individual todo operations
-        const todoMatch = pathname.match(/^\/api\/todos\/(\d+)$/);
-        if (todoMatch) {
-            const id = Number(todoMatch[1]);
+            // Create new todo
+            POST: async (req) => {
+                let body: any;
+                try {
+                    body = await req.json();
+                } catch {
+                    return json({ error: "Invalid JSON" }, { status: 400 });
+                }
+                const text = (body?.text ?? "").toString().trim();
+                if (!text) {
+                    return json({ error: "text is required" }, { status: 400 });
+                }
+                const res = insertTodo.run({ $text: text });
+                const id = Number(res.lastInsertRowid);
+                const row = selectOne.get({ $id: id }) as {
+                    id: number;
+                    text: string;
+                    completed: number;
+                    created_at: string;
+                    updated_at: string;
+                };
+                return json({ ...row, completed: !!row.completed }, {
+                    status: 201,
+                });
+            },
+        },
 
+        // Individual todo operations with dynamic parameter
+        "/api/todos/:id": {
             // Get single todo
-            if (req.method === "GET") {
+            GET: (req) => {
+                const id = Number(req.params.id);
                 const row = selectOne.get({ $id: id }) as
                     | {
                         id: number;
@@ -141,10 +137,11 @@ Bun.serve({
                     return json({ error: "Not found" }, { status: 404 });
                 }
                 return json({ ...row, completed: !!row.completed });
-            }
+            },
 
             // Update todo
-            if (req.method === "PATCH" || req.method === "PUT") {
+            PATCH: async (req) => {
+                const id = Number(req.params.id);
                 let body: any;
                 try {
                     body = await req.json();
@@ -191,16 +188,15 @@ Bun.serve({
                     return json({ error: "Not found" }, { status: 404 });
                 }
                 return json({ ...row, completed: !!row.completed });
-            }
+            },
 
             // Delete todo
-            if (req.method === "DELETE") {
+            DELETE: (req) => {
+                const id = Number(req.params.id);
                 deleteTodo.run({ $id: id });
                 return new Response(null, { status: 204 });
-            }
-        }
-
-        return new Response("Not Found", { status: 404 });
+            },
+        },
     },
 });
 
