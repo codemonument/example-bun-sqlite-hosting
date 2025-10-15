@@ -6,6 +6,8 @@ on Railway.
 If running you can find it:
 
 - at railway: https://example-bun-sqlite-railway-production.up.railway.app/
+- at fly.io: https://example-bun-sqlite-hosting.fly.dev
+- at sevalla: https://example-bun-sqlite-hosting-sc13n.sevalla.app/todos
 
 ## Features
 
