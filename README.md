@@ -3,6 +3,16 @@
 Example repository to develop scaffolding for using Bun + SQLite with deployment
 on Railway.
 
+If running you can find it here:
+https://example-bun-sqlite-railway-production.up.railway.app/
+
+## FINAL SUMMARY (2025-10-15)
+
+I'm not using railway for more projects. I cannot automate volume creation via
+the railway.toml file and infrastructure as code is extremely important to me.
+However, maybe they add it in the future. Keeping this repo around for testing
+later.
+
 ## Features
 
 - **Pure Bun** - No external frameworks, uses Bun.serve and built-in SQLite
