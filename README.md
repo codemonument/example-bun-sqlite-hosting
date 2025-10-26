@@ -177,6 +177,36 @@ The [railway.toml](railway.toml) file configures:
 
 # Deployment Insights gathered
 
+## uncloud: 2025-10-26 on paas2
+
+- machine setup: see "systems/server/paas2" - running on hetzner
+- Setup a volume: "uc volume create example-bun-sqlite-hosting_data"
+
+Use command "uc deploy": `uc deploy`
+
+```bash
+❯ uc deploy --help
+Deploy services from a Compose file.
+
+Usage:
+  uc deploy [FLAGS] [SERVICE...] [flags]
+
+Flags:
+  -c, --context string    Name of the cluster context to deploy to (default is the current context)
+  -f, --file strings      One or more Compose files to deploy services from. (default compose.yaml)
+  -h, --help              help for deploy
+  -n, --no-build          Do not build images before deploying services. (default false)
+  -p, --profile strings   One or more Compose profiles to enable.
+      --recreate          Recreate containers even if their configuration and image haven't changed.
+  -y, --yes               Auto-confirm deployment plan. Should be explicitly set when running non-interactively,
+                          e.g., in CI/CD pipelines. [$UNCLOUD_AUTO_CONFIRM]
+
+Global Flags:
+      --connect string          Connect to a remote cluster machine without using the Uncloud configuration file. [$UNCLOUD_CONNECT]
+                                Format: [ssh://]user@host[:port] or tcp://host:port
+      --uncloud-config string   Path to the Uncloud configuration file. [$UNCLOUD_CONFIG] (default "~/.config/uncloud/config.yaml")
+```
+
 ## Sevalla 2025-10-15: really solid ui, but no Infra as code again!
 
 For Deployment:

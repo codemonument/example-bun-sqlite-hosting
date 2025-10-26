@@ -1,0 +1,21 @@
+volumes:
+  example-bun-sqlite-hosting--data:
+
+services:
+  example-bun-sqlite-hosting--app:
+    image: "bjesuiter/example-bun-sqlite-hosting:latest"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    # ports:
+    #   - "3000:3000"
+    x-ports:
+      - "todo.paas2.vserv.fun:3000/https"
+    environment:
+      - DB_PATH=/data/app.sqlite
+    volumes:
+      - example-bun-sqlite-hosting--data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/healthz"]
+      interval: 30s

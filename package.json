@@ -11,7 +11,8 @@
     "railway:link": "railway link -p 6e2c27cc-77f1-4977-ad0f-0925fbadf818",
     "railway:setup": "bun run railway:volume && bun run railway:env",
     "railway:volume": "railway volume add --mount-path /data",
-    "railway:env": "railway variables -e production -s example-bun-sqlite-hosting --set \"DB_PATH=/data/app.sqlite\""
+    "railway:env": "railway variables -e production -s example-bun-sqlite-hosting --set \"DB_PATH=/data/app.sqlite\"",
+    "uc:deploy": "uc deploy --file uncloud-compose.yaml"
   },
   "devDependencies": {
     "@types/bun": "latest"
