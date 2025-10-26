@@ -199,7 +199,7 @@ AFAIK:
 - these templates can be synced with another git repo, different to the one you
   deploying your app from (?!? - why tf)
 
-## Fly.io 2025-10-15: works ok
+## Fly.io 2025-10-15: works ok, coldstart is extremely slow
 
 - some issues with the initial deployment, the automatic detection got some
   things wrong as i gave the git repo to fly.io
@@ -211,8 +211,6 @@ AFAIK:
 ## Railway 2025-10-15: good, but needs manual volume setup
 
 - Good: volume was created and mounted correctly
-- Bad: Cold Start time is really bad (initial request did fail due to
-  coldstart!)
 - Question: Does scaling the volume via railway.toml work? => no, volume
   management is completely manual, via dashboard
 
