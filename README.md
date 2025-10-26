@@ -208,12 +208,13 @@ AFAIK:
 - Bad: Cold Start time is really bad (initial request did fail due to
   coldstart!)
 
-## Railway 2025-10-15: not my cup of tea
+## Railway 2025-10-15: good, but needs manual volume setup
 
-I'm not using railway for more projects. Main issue: I cannot automate volume
-creation via the railway.toml file and infrastructure as code is extremely
-important to me. However, maybe they add it in the future. Keeping this repo
-around for testing later.
+- Good: volume was created and mounted correctly
+- Bad: Cold Start time is really bad (initial request did fail due to
+  coldstart!)
+- Question: Does scaling the volume via railway.toml work? => no, volume
+  management is completely manual, via dashboard
 
 ---
 
